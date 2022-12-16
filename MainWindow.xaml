@@ -1,0 +1,79 @@
+﻿<Window x:Class="Darkest_Fighters.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Character Creation" Height="500" Width="800" ResizeMode="NoResize">
+    <Grid Background="LightGray">
+        <StackPanel VerticalAlignment="Center">
+            <TextBox TextWrapping="Wrap" Text="Character Name" Width="120"/>
+            <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Horizontal">
+                <Button x:Name="BtnAssassin" Tag="Assassin" Margin="0 0 15 0" Height="49" Width="49" Click="Class_click" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="Images/Roles/Slayer_icon.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="BtnBruiser" Tag="Bruiser" Margin="0 0 15 0" Height="49" Width="49" Click="Class_click" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="Images/Roles/Fighter_icon.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="BtnTank" Tag="Tank" Margin="0 0 15 0" Height="49" Width="49" Click="Class_click" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="Images/Roles/Tank_icon.png"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25">
+                <StackPanel>
+                    <Border BorderBrush="Black" BorderThickness="1 1 1 0" Height="25">
+                        <Grid>
+                            <Border BorderBrush="Black" HorizontalAlignment="Left" Width="25" BorderThickness="0 0 1 0">
+                                <Grid>
+                                    <Rectangle Width="200" Height="100">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                <GradientStop Color="#142639" Offset="0.0" />
+                                                <GradientStop Color="#0A1920" Offset="0.15" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">1</Label>
+                                </Grid>
+                            </Border>
+                            <ProgressBar x:Name="PbHealtBar" Margin="25,0,0,0" Value = "100"  ></ProgressBar>
+                        </Grid>
+                    </Border>
+
+                    <Border BorderBrush="Black" BorderThickness="1">
+                    <Grid Width="250" Height="250">
+                        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Label x:Name="LblAttackDamage">AD</Label>
+                                <Label x:Name="LblArmor">Armor</Label>
+                            <Label x:Name="LblExperience">XP</Label>
+                            <Label x:Name="LblGold">Gold</Label>
+
+                            </StackPanel>
+                        <Image Margin="0 0 70 0" StretchDirection="DownOnly">
+                        <Image.Source>
+                            <BitmapImage  UriSource="/Images/Heroes/Garen.png" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+                </Border>
+                </StackPanel>
+            </StackPanel>
+            <Button HorizontalAlignment="Center" Width="150" Height="30" Click="Button_Click" >Start</Button>
+        </StackPanel>
+
+        
+
+    </Grid>
+</Window>

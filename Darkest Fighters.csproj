@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Darkest_Fighters</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Heroes\Garen.png" />
+    <None Remove="Images\Roles\Fighter_icon.png" />
+    <None Remove="Images\Roles\Slayer_icon.png" />
+    <None Remove="Images\Roles\Tank_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\Enemies\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Heroes\Garen.png" />
+    <Resource Include="Images\Roles\Fighter_icon.png" />
+    <Resource Include="Images\Roles\Slayer_icon.png" />
+    <Resource Include="Images\Roles\Tank_icon.png" />
+  </ItemGroup>
+
+</Project>
