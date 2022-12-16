@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Darkest_Fighters.Classes;
 
@@ -7,8 +8,10 @@ internal class Hero
     
     private readonly Random _rng = new Random();
 
-    public Hero(string? heroType)
+    public Hero(string? heroType, int maxHealthPoints, Enemies enemies)
     {
+        MaxHealthPoints = maxHealthPoints;
+        Enemies = enemies;
         switch (heroType)
         {
             case "Bruiser":
@@ -32,10 +35,18 @@ internal class Hero
         Gold = 0;
     }
 
+    // List of enemy characters that belong to this Hero instance
+    public List<Character> Characters { get; } = new List<Character>();
 
+    // The Enemies object to which this Hero object belongs
+    public Enemies Enemies { get; set; }
 
     // The current health points of the hero.
-    public int HealthPoints { get; private set; }
+    public int HealthPoints { get; set; }
+
+    // The maximum health points of the hero.
+    public int MaxHealthPoints { get; }
+
 
     // The amount of damage the hero can deal to enemies.
     public int AttackDamage { get; private set; }
@@ -51,4 +62,91 @@ internal class Hero
 
     // The amount of gold that the hero currently has.
     public int Gold { get; private set; }
+
+    public void AddExperiencePoints(int experiencePoints)
+    {
+        ExperiencePoints += experiencePoints;
+        int levelUpExperience = Level * 100;
+        while (ExperiencePoints >= levelUpExperience)
+        {
+            Level++;
+            levelUpExperience = Level * 100;
+        }
+    }
+
+    public int GetAttackResist()
+    {
+        return AttackResist;
+    }
+
+    public int GetLevel()
+    {
+        return Level;
+    }
+
+
+
+    public int GetExperiencePoints()
+    {
+        return ExperiencePoints;
+    }
+
+    public int GetAttackDamage()
+    {
+        return AttackDamage;
+    }
+
+
+    public int GetHealthPoints()
+    {
+        return HealthPoints;
+    }
+
+
+    public void AddGold(int gold)
+    {
+        Gold += gold;
+    }
+
+
+    public void Attack(Character enemy)
+    {
+        enemy.TakeDamage(AttackDamage);
+    }
+
+    public void Heal(int healing)
+    {
+        HealthPoints = Math.Min(HealthPoints + healing, MaxHealthPoints);
+    }
+
+
+    private void LevelUp()
+    {
+        int levelUpExperiencePoints = Level * 1000;
+        if (ExperiencePoints >= levelUpExperiencePoints)
+        {
+            ExperiencePoints -= levelUpExperiencePoints;
+            Level++;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        HealthPoints -= Math.Max(damage - AttackResist, 0);
+    }
+
+
+    public void Attack(Enemies enemies)
+    {
+        foreach (Character enemy in enemies.Characters)
+        {
+            int damage = AttackDamage - enemy.Armor;
+            if (damage > 0)
+            {
+                enemy.Health -= damage;
+            }
+        }
+    }
+
+
 }

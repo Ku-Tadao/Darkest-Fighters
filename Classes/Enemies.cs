@@ -5,23 +5,38 @@ namespace Darkest_Fighters.Classes;
 
 internal class Enemies
 {
+
+    // The Hero object to which this Enemies object belongs
+    public Hero Hero { get; set; }
+
+    // Constructor that sets the value of the Hero property
+    public Enemies(Hero hero)
+    {
+        Hero = hero;
+    }
+
+    // List of enemy characters that belong to this Enemies instance
+    public List<Character> Characters { get; } = new List<Character>();
+
     // List of enemy names and it's rarity
     public List<string> EpicEnemies { get; } = new()
-    {
-        "Chemtech Drake", "Cloud Drake", "Hextech Drake", "Infernal Drake", "Mountain Drake", "Ocean Drake",
-        "Baron Nashor", "Elder Dragon", "Rift Herald"
-    };
+        {
+            "Chemtech Drake", "Cloud Drake", "Hextech Drake", "Infernal Drake", "Mountain Drake", "Ocean Drake",
+            "Baron Nashor", "Elder Dragon", "Rift Herald"
+        };
 
     public List<string> RareEnemies { get; } = new()
-    {
-        "Ancient Krug", "Blue Sentinel", "Crimson Raptor",
-        "Greater Murk Wolf", "Gromp", "Red Brambleback"
-    };
+        {
+            "Ancient Krug", "Blue Sentinel", "Crimson Raptor",
+            "Greater Murk Wolf", "Gromp", "Red Brambleback"
+        };
 
     public List<string> UncommonEnemies { get; } = new()
-        { "Crimson Raptor", "Gromp", "Murk Wolf", "Red Brambleback", "Small Golem", "Wolf" };
+            { "Crimson Raptor", "Gromp", "Murk Wolf", "Red Brambleback", "Small Golem", "Wolf" };
 
     public List<string> CommonEnemies { get; } = new() { "Murk Wolf", "Small Golem", "Wolf" };
+
+    public List<Character> EnemyCharacters { get; } = new List<Character>();
 
     private readonly Random _rng = new Random();
 
@@ -93,4 +108,73 @@ internal class Enemies
 
         return null;
     }
+
+    // Attacks the specified hero with all of the enemies in the Characters list
+    public void Attack(Hero hero)
+    {
+        foreach (Character enemy in Characters)
+        {
+            int damage = enemy.AttackDamage - hero.AttackResist;
+            if (damage > 0)
+            {
+                hero.TakeDamage(damage);
+            }
+        }
+    }
+
+
+
+    public List<Character> GetCharacters()
+    {
+        return Characters;
+    }
+
+
+    public bool IsDefeated()
+    {
+        foreach (Character enemy in Characters)
+        {
+            if (enemy.Health > 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
+    public int GetTotalExperiencePoints()
+    {
+        int totalExperiencePoints = 0;
+        foreach (Character enemy in Characters)
+        {
+            totalExperiencePoints += enemy.ExperiencePoints;
+        }
+        return totalExperiencePoints;
+    }
+
+    public int GetTotalGold()
+    {
+        int totalGold = 0;
+        foreach (Character enemy in Characters)
+        {
+            totalGold += enemy.Gold;
+        }
+        return totalGold;
+    }
+
+    public void RemoveEnemy(Character enemy)
+    {
+        Characters.Remove(enemy);
+    }
+
+    public int GetNumberOfEnemies()
+    {
+        return Characters.Count;
+    }
+
+
 }
+

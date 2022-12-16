@@ -13,18 +13,17 @@ namespace Darkest_Fighters
             InitializeComponent();
         }
 
-        private void CreateHero(string? heroType)
+        private void CreateHero(string heroType)
         {
             // Create a new hero of the specified type
-            Hero hero = new(heroType);
-
+            Hero hero = new Hero(heroType);
             // Update the UI with the hero's stats
-            LblAttackDamage.Content = "AD: " + hero.AttackDamage;
+            LblAttackDamage.Content = $"AD: {hero.AttackDamage}";
             PbHealtBar.Maximum = hero.HealthPoints;
             PbHealtBar.Value = hero.HealthPoints;
-            LblArmor.Content = "Armor: " + hero.AttackResist;
-            LblExperience.Content = "XP: " + hero.ExperiencePoints;
-            LblGold.Content = "Gold: " + hero.Gold;
+            LblArmor.Content = $"Armor: {hero.AttackResist}";
+            LblExperience.Content = $"XP: {hero.ExperiencePoints}";
+            LblGold.Content = $"Gold: {hero.Gold}";
         }
 
         private void Class_click(object sender, RoutedEventArgs e)
@@ -62,8 +61,5 @@ namespace Darkest_Fighters
             BtnBruiser.IsEnabled = false;
             BtnTank.IsEnabled = false;
         }
-
-
-
     }
 }
