@@ -8,53 +8,33 @@ namespace Darkest_Fighters
 
     public partial class MainWindow : Window
     {
+        Enemy _enemy;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+
+            // Create a new enemy with the random name and specified rarity
+            Enemy _enemy = new Enemy( 20, 3, 2, 3, 5);
         }
 
-        private void CreateHero(string heroType)
+
+        private void CreateHero(string? heroType, int maxHealthPoints)
         {
-            // Create a new hero of the specified type
-            Hero hero = new Hero(heroType);
-            // Update the UI with the hero's stats
-            LblAttackDamage.Content = $"AD: {hero.AttackDamage}";
-            PbHealtBar.Maximum = hero.HealthPoints;
-            PbHealtBar.Value = hero.HealthPoints;
-            LblArmor.Content = $"Armor: {hero.AttackResist}";
-            LblExperience.Content = $"XP: {hero.ExperiencePoints}";
-            LblGold.Content = $"Gold: {hero.Gold}";
+          
         }
+
 
         private void Class_click(object sender, RoutedEventArgs e)
         {
-            // Get the button that was clicked
-            Button? button = sender as Button;
-
-            // Create a hero of the specified type
-            CreateHero(button?.Tag.ToString());
+          _enemy.TakeDamage(10);
         }
-
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the health bar is at maximum
-            if (Math.Abs(PbHealtBar.Value - 100) < 0.001)
-            {
-                // If it is, return without doing anything
-                return;
-            }
-
-            // Create a new Enemies object
-            Enemies enemies = new Enemies();
-
-            // Get a random enemy name
-            var randomEnemy = enemies.RandomEnemies();
-            foreach (var enemy in randomEnemy)
-            {
-                // Display the enemy name to the user
-                MessageBox.Show("You encountered a " + enemy + "!");
-            }
 
             // Disable all buttons
             BtnAssassin.IsEnabled = false;

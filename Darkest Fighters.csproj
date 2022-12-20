@@ -9,21 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Heroes\Garen.png" />
-    <None Remove="Images\Roles\Fighter_icon.png" />
-    <None Remove="Images\Roles\Slayer_icon.png" />
-    <None Remove="Images\Roles\Tank_icon.png" />
+    <None Remove="Images\monster.png" />
+    <None Remove="Images\Garen.png" />
+    <None Remove="Images\monster.png" />
+    <None Remove="Images\Fighter_icon.png" />
+    <None Remove="Images\Slayer_icon.png" />
+    <None Remove="Images\Tank_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\Enemies\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Images\Heroes\Garen.png" />
-    <Resource Include="Images\Roles\Fighter_icon.png" />
-    <Resource Include="Images\Roles\Slayer_icon.png" />
-    <Resource Include="Images\Roles\Tank_icon.png" />
+    <Resource Include="Images\Garen.png" />
+    <Resource Include="Images\monster.png" />
+    <Resource Include="Images\Fighter_icon.png" />
+    <Resource Include="Images\Slayer_icon.png" />
+    <Resource Include="Images\Tank_icon.png" />
   </ItemGroup>
 
 </Project>
