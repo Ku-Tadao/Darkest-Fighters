@@ -4,118 +4,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Character Creation" Height="500" Width="800" ResizeMode="NoResize">
-    <Grid Background="LightGray">
-        <StackPanel VerticalAlignment="Center">
-            <TextBox x:Name="TbCharName" TextWrapping="Wrap" Text="Character Name" Width="120"/>
-            <StackPanel HorizontalAlignment="Center" Margin="0 10 0 0" Orientation="Horizontal">
-                <Button x:Name="BtnAssassin" Tag="Assassin" Margin="0 0 15 0" Height="49" Width="49" Click="Class_click" >
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="Images/Slayer_icon.png"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button x:Name="BtnBruiser" Tag="Bruiser" Margin="0 0 15 0" Height="49" Width="49" Click="Class_click" >
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="Images/Fighter_icon.png"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button x:Name="BtnTank" Tag="Tank" Margin="0 0 15 0" Height="49" Width="49" Click="Class_click" >
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Image Source="Images/Tank_icon.png"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+        Title="Game" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Hero Information -->
+        <GroupBox Grid.Column="0" Header="Hero">
+            <StackPanel>
+                <Label Content="Name: " />
+                <TextBlock x:Name="txtHeroName" />
+                <Label Content="Health: " />
+                <TextBlock x:Name="txtHeroHealth" />
+                <Label Content="Mana: " />
+                <TextBlock x:Name="txtHeroMana" />
+                <Label Content="Attack Power: " />
+                <TextBlock x:Name="txtHeroAttackPower" />
+                <Label Content="Heal Power: " />
+                <TextBlock x:Name="txtHeroHealPower" />
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="25">
-               <Grid Width="750">
-                    <StackPanel Width="250" HorizontalAlignment="Left">
-                        <Border BorderBrush="Black" BorderThickness="1 1 1 0" Height="25">
-                            <Grid>
-                                <Border BorderBrush="Black" HorizontalAlignment="Left" Width="25" BorderThickness="0 0 1 0">
-                                    <Grid>
-                                        <Rectangle Width="200" Height="100">
-                                            <Rectangle.Fill>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                    <GradientStop Color="#142639" Offset="0.0" />
-                                                    <GradientStop Color="#0A1920" Offset="0.15" />
-                                                </LinearGradientBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">1</Label>
-                                    </Grid>
-                                </Border>
-                                <ProgressBar x:Name="PbHeroHealtBar" Margin="25,0,0,0" Value = "100"  ></ProgressBar>
-                                <Label x:Name="LblCharName" Margin="25,0,0,0" HorizontalAlignment="Center"></Label>
-                            </Grid>
-                        </Border>
+        </GroupBox>
 
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <Grid Width="250" Height="250">
-                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-                                    <Label x:Name="LblAttackDamage">AD</Label>
-                                    <Label x:Name="LblArmor">Armor</Label>
-                                    <Label x:Name="LblExperience">XP</Label>
-                                    <Label x:Name="LblGold">Gold</Label>
-
-                                </StackPanel>
-                                <Image Margin="0 0 70 0" StretchDirection="DownOnly">
-                                    <Image.Source>
-                                        <BitmapImage  UriSource="/Images/Garen.png" />
-                                    </Image.Source>
-                                </Image>
-                            </Grid>
-                        </Border>
-                    </StackPanel>
-                    <StackPanel Width="250" Margin="0,0,20,0" HorizontalAlignment="Right">
-                        <Border BorderBrush="Black" BorderThickness="1 1 1 0" Height="25">
-                            <Grid>
-                                <Border BorderBrush="Black" HorizontalAlignment="Left" Width="25" BorderThickness="0 0 1 0">
-                                    <Grid>
-                                        <Rectangle Width="200" Height="100">
-                                            <Rectangle.Fill>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                    <GradientStop Color="#142639" Offset="0.0" />
-                                                    <GradientStop Color="#0A1920" Offset="0.15" />
-                                                </LinearGradientBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White">1</Label>
-                                    </Grid>
-                                </Border>
-                                <ProgressBar x:Name="PbEnemyHealtBar" Margin="25,0,0,0" Value = "100" Foreground="Red"  ></ProgressBar>
-                                <Label x:Name="LblEnemyName" Margin="25,0,0,0" HorizontalAlignment="Center"></Label>
-                            </Grid>
-                        </Border>
-
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <Grid  Height="250">
-                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-                                    <Label >AD</Label>
-                                    <Label >Armor</Label>
-                                    <Label >XP</Label>
-                                    <Label >Gold</Label>
-
-                                </StackPanel>
-                                <Image Margin="0 0 70 0" StretchDirection="DownOnly">
-                                    <Image.Source>
-                                        <BitmapImage  UriSource="/Images/monster.png" />
-                                    </Image.Source>
-                                </Image>
-                            </Grid>
-                        </Border>
-                    </StackPanel>
-                </Grid>
-
+        <!-- Enemy Information -->
+        <GroupBox Grid.Column="1" Header="Enemy">
+            <StackPanel>
+                <Label Content="Name: " />
+                <TextBlock x:Name="txtEnemyName" />
+                <Label Content="Health: " />
+                <TextBlock x:Name="txtEnemyHealth" />
+                <Label Content="Mana: " />
+                <TextBlock x:Name="txtEnemyMana" />
+                <Label Content="Attack Power: " />
+                <TextBlock x:Name="txtEnemyAttackPower" />
             </StackPanel>
-            <Button HorizontalAlignment="Center" Width="150" Height="30" Click="Button_Click" >Start</Button>
-        </StackPanel>
+        </GroupBox>
 
-        
+        <!-- Attack Button -->
+        <Button Grid.Row="1" Content="Attack" Click="btnAttack_Click" />
 
+        <!-- Heal Button -->
+        <Button Grid.Row="2" Content="Heal" Click="btnHeal_Click" />
     </Grid>
 </Window>

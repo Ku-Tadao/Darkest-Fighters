@@ -1,55 +1,70 @@
-﻿using System;
-
-namespace Darkest_Fighters.Classes;
-
-public class Player
+﻿class Player
 {
-    // Properties
-    public string Name { get; set; }
-    public int Health { get; set; }
-    public int MaxHealth { get; set; }
-    public int Attack { get; set; }
-    public int Defense { get; set; }
-    public int Speed { get; set; }
-    public virtual int DefenseTurnsRemaining { get; set; }
+    // private fields for encapsulation
+    private int _health;
+    private int _mana;
+    private string _name;
+    private double _attackPower;
+    private bool _isAlive;
 
-    // Constructor
-    public Player(string name, int maxHealth, int attack, int defense, int speed)
+    // get/set methods for encapsulation
+    public int Health
     {
-        Name = name;
-        MaxHealth = maxHealth;
-        Health = maxHealth;
-        Attack = attack;
-        Defense = defense;
-        Speed = speed;
+        get { return _health; }
+        set { _health = value; }
     }
 
-    // Methods
-    // Method to handle taking damage
-    public virtual void TakeDamage(int damage)
+    public int Mana
     {
-        // If the player is defending, reduce the damage it takes by its defense stat
-        if (this.DefenseTurnsRemaining > 0)
-        {
-            damage -= this.Defense;
-        }
+        get { return _mana; }
+        set { _mana = value; }
+    }
 
-        // Ensure that the player takes at least 1 point of damage
-        damage = Math.Max(damage, 1);
+    public string Name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
 
-        this.Health -= damage;
-        if (this.Health < 0)
+    public double AttackPower
+    {
+        get { return _attackPower; }
+        set { _attackPower = value; }
+    }
+
+    public bool IsAlive
+    {
+        get { return _isAlive; }
+        set { _isAlive = value; }
+    }
+
+    // constructor with default values
+    public Player(int health = 100, int mana = 50, string name = "", double attackPower = 10)
+    {
+        _health = health;
+        _mana = mana;
+        _name = name;
+        _attackPower = attackPower;
+        _isAlive = true;
+    }
+
+    // method for attacking another player
+    public void Attack(Player target)
+    {
+        target.Health -= (int)_attackPower;
+        if (target.Health <= 0)
         {
-            this.Health = 0;
+            target.IsAlive = false;
         }
     }
 
-public void Heal(int amount)
+    // method overload for attacking another player with a custom attack power
+    public void Attack(Player target, double attackPower)
     {
-        Health += amount;
-        if (Health > MaxHealth)
+        target.Health -= (int)attackPower;
+        if (target.Health <= 0)
         {
-            Health = MaxHealth;
+            target.IsAlive = false;
         }
     }
 }

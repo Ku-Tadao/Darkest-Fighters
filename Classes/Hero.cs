@@ -1,34 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Darkest_Fighters.Classes;
-
-public class Hero : Player
+﻿class Hero : Player
 {
-    // Additional properties
-    public int Experience { get; set; }
-    public int Level { get; set; }
+    // private field for encapsulation
+    private int _healPower;
 
-    // Constructor
-    public Hero(string name, int maxHealth, int attack, int defense, int speed, int experience, int level)
-        : base(name, maxHealth, attack, defense, speed)
+    // get/set method for encapsulation
+    public int HealPower
     {
-        Experience = experience;
-        Level = level;
+        get { return _healPower; }
+        set { _healPower = value; }
     }
 
-
-    // Method to level up the hero
-    public void LevelUp()
+    // constructor with default values
+    public Hero(int health = 100, int mana = 50, string name = "", double attackPower = 10, int healPower = 20) : base(health, mana, name, attackPower)
     {
-        // Increase the hero's level and stats
-        Level++;
-        MaxHealth += 10;
-        Attack += 2;
-        Defense += 2;
-        Speed += 1;
+        _healPower = healPower;
+    }
 
-        // Fully heal the hero
-        Health = MaxHealth;
+    // method for healing self
+    public void Heal()
+    {
+        Health += _healPower;
+    }
+
+    // method overload for healing self with a custom heal power
+    public void Heal(int healPower)
+    {
+        Health += healPower;
     }
 }

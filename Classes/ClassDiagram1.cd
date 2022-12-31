@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Darkest_Fighters.Classes.Enemy">
-    <Position X="6.25" Y="3.75" Width="1.5" />
+  <Class Name="Enemy">
+    <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgBAAAAAAACAAAAAAQAAAQAAAAgCAgAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Enemies.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Darkest_Fighters.Classes.Hero">
-    <Position X="6.25" Y="1.5" Width="1.5" />
+  <Class Name="Hero">
+    <Position X="7.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAABAAAAAAAAQAA=</HashCode>
+      <HashCode>AAAQAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
       <FileName>Classes\Hero.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Darkest_Fighters.Classes.Player">
-    <Position X="4" Y="2.25" Width="1.5" />
+  <Class Name="Player">
+    <Position X="5.5" Y="2" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAAACACAAAAAAAQBAIAAAAAAAAAAggAAAAA=</HashCode>
+      <HashCode>AwAALAAAAAEAAAAAAAAACAQAAIAAAAAAAAAAIAAAAEA=</HashCode>
       <FileName>Classes\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
