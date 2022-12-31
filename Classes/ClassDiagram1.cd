@@ -16,8 +16,15 @@
   </Class>
   <Class Name="Player">
     <Position X="5.5" Y="2" Width="1.75" />
+    <NestedTypes>
+      <Enum Name="Player.AttackType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Classes\Player.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AwAALAAAAAEAAAAAAAAACAQAAIAAAAAAAAAAIAAAAEA=</HashCode>
+      <HashCode>AwAALAAAAAEAAAAAAAAACAQAAIAAAAAABAAAIAAAAEA=</HashCode>
       <FileName>Classes\Player.cs</FileName>
     </TypeIdentifier>
   </Class>

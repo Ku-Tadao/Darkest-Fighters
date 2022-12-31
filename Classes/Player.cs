@@ -67,4 +67,40 @@
             target.IsAlive = false;
         }
     }
+
+    // enum for attack types
+    public enum AttackType
+    {
+        Normal,
+        Magic,
+        Critical
+    }
+
+    // method that takes an enum as a parameter and returns a class type
+    public Player UseSpecialAttack(Player target, AttackType type)
+    {
+        switch (type)
+        {
+            case AttackType.Normal:
+                target.Health -= (int)(_attackPower * 1.5);
+                break;
+            case AttackType.Magic:
+                target.Health -= (int)(_attackPower * 2);
+                _mana -= 20;
+                break;
+            case AttackType.Critical:
+                target.Health -= (int)(_attackPower * 3);
+                break;
+            default:
+                break;
+        }
+
+        if (target.Health <= 0)
+        {
+            target.IsAlive = false;
+        }
+
+        return target;
+    }
 }
+
