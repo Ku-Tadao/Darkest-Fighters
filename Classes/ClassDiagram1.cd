@@ -16,8 +16,11 @@
   </Class>
   <Class Name="Player">
     <Position X="5.5" Y="2" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
     <NestedTypes>
-      <Enum Name="Player.AttackType" Collapsed="true">
+      <Enum Name="Player.AttackType">
         <TypeIdentifier>
           <NewMemberFileName>Classes\Player.cs</NewMemberFileName>
         </TypeIdentifier>

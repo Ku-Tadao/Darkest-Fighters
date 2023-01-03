@@ -1,4 +1,6 @@
-﻿class Hero : Player
+﻿namespace Darkest_Fighters.Classes;
+
+internal class Hero : Player
 {
     // private field for encapsulation
     private int _healPower;

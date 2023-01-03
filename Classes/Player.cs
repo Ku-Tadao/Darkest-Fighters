@@ -1,4 +1,6 @@
-﻿class Player
+﻿namespace Darkest_Fighters.Classes;
+
+internal class Player
 {
     // private fields for encapsulation
     private int _health;
@@ -103,4 +105,3 @@
         return target;
     }
 }
-
