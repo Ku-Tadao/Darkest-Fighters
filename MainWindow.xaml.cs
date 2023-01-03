@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using Darkest_Fighters.Classes;
+using static Darkest_Fighters.Classes.Player;
 
 namespace Darkest_Fighters
 {
     public partial class MainWindow
     {
-        // create hero and enemy objects
-        private readonly Hero _hero = new();
-        private Enemy _enemy = new();
-
-        // list to store attack powers for hero
-        private List<double> _heroAttackPowers = new() { 10, 20, 30, 40, 50 };
-        // array to store attack powers for enemy
-        private readonly double[] _enemyAttackPowers = { 10, 20, 30, 40, 50 };
+        private readonly Hero _hero;
+        private readonly Enemy _enemy;
+        private int _round;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // set hero and enemy information on GUI
+            // Initialize hero and enemy
+            _hero = new Hero("Hero", 100, 100, 10, 5);
+            _enemy = new Enemy("Enemy", 100, 100, 5, 2);
+
+            // Set initial values for UI elements
             txtHeroName.Text = _hero.Name;
             txtHeroHealth.Text = _hero.Health.ToString();
             txtHeroMana.Text = _hero.Mana.ToString();
@@ -30,78 +28,132 @@ namespace Darkest_Fighters
             txtEnemyHealth.Text = _enemy.Health.ToString();
             txtEnemyMana.Text = _enemy.Mana.ToString();
             txtEnemyAttackPower.Text = _enemy.AttackPower.ToString();
+            _round = 1;
+            lblRound.Text = "Round: " + _round;
+        }
+        private void AddToGameLog(string message)
+        {
+            lvGameLog.Items.Add(message);
         }
 
-        // event handler for Attack button click
+        private void PlayGame()
+        {
+            // Game loop code...
+
+            while (_hero.Health > 0 && _enemy.Health > 0)
+            {
+                // Hero's turn
+                var attackType = GetAttackType();
+                var damage = _hero.Attack(attackType, _enemy);
+                _enemy.TakeDamage(damage);
+                UpdateUi();
+                AddToGameLog($"Hero attacks with {attackType} for {damage} damage.");
+                if (_enemy.Health <= 0)
+                {
+                    break;
+                }
+
+                // Enemy's turn
+                damage = _enemy.Attack(_hero);
+                _hero.TakeDamage(damage);
+                UpdateUi();
+                AddToGameLog($"Enemy attacks for {damage} damage.");
+            }
+        }
+
+        private AttackType GetAttackType()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void UpdateUi()
+        {
+            txtHeroName.Text = _hero.Name;
+            txtHeroHealth.Text = _hero.Health.ToString();
+            txtHeroMana.Text = _hero.Mana.ToString();
+            txtHeroAttackPower.Text = _hero.AttackPower.ToString();
+            txtHeroHealPower.Text = _hero.HealPower.ToString();
+
+            txtEnemyName.Text = _enemy.Name;
+            txtEnemyHealth.Text = _enemy.Health.ToString();
+            txtEnemyAttackPower.Text = _enemy.AttackPower.ToString();
+        }
+
+
         private void btnAttack_Click(object sender, RoutedEventArgs e)
         {
-            // check if hero and enemy are still alive
-            if (_hero.IsAlive && _enemy.IsAlive)
+            // Get attack type
+            AttackType attackType;
+            if (rbNormal.IsChecked == true)
+                attackType = AttackType.Normal;
+            else if (rbMagic.IsChecked == true)
+                attackType = AttackType.Magic;
+            else
+                attackType = AttackType.Critical;
+
+            // Attack enemy
+            var damage = _hero.Attack(attackType, _enemy);
+            _enemy.TakeDamage(damage);
+
+            // Update UI
+            txtEnemyHealth.Text = _enemy.Health.ToString();
+
+            // Check if game is over
+            if (_enemy.Health <= 0)
             {
-                // hero chooses attack type
-                Player.AttackType type;
-                if (rbNormal.IsChecked == true)
-                {
-                    type = Player.AttackType.Normal;
-                }
-                else if (rbMagic.IsChecked == true)
-                {
-                    type = Player.AttackType.Magic;
-                }
-                else
-                {
-                    type = Player.AttackType.Critical;
-                }
-
-                // hero attacks enemy
-                _enemy = (Enemy)_hero.UseSpecialAttack(_enemy, type);
-                txtEnemyHealth.Text = _enemy.Health.ToString();
-
-                // check if enemy is still alive
-                if (!_enemy.IsAlive)
-                {
-                    MessageBox.Show("You have defeated the enemy!");
-                }
-                else
-                {
-                    // enemy attacks hero
-                    _hero.Attack(_hero, _enemyAttackPowers[new Random().Next(0, 5)]);
-                    txtHeroHealth.Text = _hero.Health.ToString();
-
-                    // check if hero is still alive
-                    if (!_hero.IsAlive)
-                    {
-                        MessageBox.Show("You have been defeated!");
-                    }
-                }
+                MessageBox.Show("You win!");
+                Close();
             }
             else
             {
-                MessageBox.Show("Game over!");
+                // Enemy's turn
+                var enemyDamage = _enemy.Attack(_hero);
+                _hero.TakeDamage(enemyDamage);
+
+                // Update UI
+                txtHeroHealth.Text = _hero.Health.ToString();
+
+                // Check if game is over
+                if (_hero.Health <= 0)
+                {
+                    MessageBox.Show("You lose!");
+                    Close();
+                }
             }
+
+            // Update round number
+            _round++;
+            lblRound.Text = "Round: " + _round;
         }
 
-        // event handler for Heal button click
         private void btnHeal_Click(object sender, RoutedEventArgs e)
         {
-            // check if hero is still alive and has enough mana
-            if (_hero.IsAlive && _hero.Mana >= 20)
+            // Heal hero
+            _hero.Heal();
+
+            // Update UI
+            txtHeroHealth.Text = _hero.Health.ToString();
+            txtHeroMana.Text = _hero.Mana.ToString();
+
+            // Enemy's turn
+            var enemyDamage = _enemy.Attack(_hero);
+            _hero.TakeDamage(enemyDamage);
+
+            // Update UI
+            txtHeroHealth.Text = _hero.Health.ToString();
+
+            // Check if game is over
+            if (_hero.Health <= 0)
             {
-                _hero.Heal();
-                txtHeroHealth.Text = _hero.Health.ToString();
-                _hero.Mana -= 20;
-                txtHeroMana.Text = _hero.Mana.ToString();
+                MessageBox.Show("You lose!");
+                Close();
             }
-            else if (!_hero.IsAlive)
-            {
-                MessageBox.Show("You have been defeated!");
-            }
-            else
-            {
-                MessageBox.Show("Not enough mana!");
-            }
+            // Update round number
+            _round++;
+            lblRound.Text = "Round: " + _round;
         }
     }
+
 
 
 

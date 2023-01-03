@@ -1,32 +1,86 @@
-﻿namespace Darkest_Fighters.Classes;
+﻿using System;
+using System.Windows;
 
-internal class Hero : Player
+namespace Darkest_Fighters.Classes;
+
+public class Hero : Player
 {
-    // private field for encapsulation
-    private int _healPower;
-
-    // get/set method for encapsulation
-    public int HealPower
+    public Hero(string name, int health, int mana, int attackPower, int healPower)
+        : base(name, health, mana, attackPower, healPower)
     {
-        get { return _healPower; }
-        set { _healPower = value; }
     }
 
-    // constructor with default values
-    public Hero(int health = 100, int mana = 50, string name = "", double attackPower = 10, int healPower = 20) : base(health, mana, name, attackPower)
+    public virtual int Attack(AttackType attackType, Player target)
     {
-        _healPower = healPower;
+        var damage = 0;
+        switch (attackType)
+        {
+            case AttackType.Normal:
+                damage = AttackPower;
+                break;
+            case AttackType.Magic:
+                if (Mana >= 10)
+                {
+                    damage = AttackPower * 2;
+                    Mana -= 10;
+                }
+                else
+                {
+                    MessageBox.Show("Not enough mana for magic attack!");
+                }
+
+                break;
+            case AttackType.Critical:
+                if (Mana >= 20)
+                {
+                    damage = AttackPower * 3;
+                    Mana -= 20;
+                }
+                else
+                {
+                    MessageBox.Show("Not enough mana for critical attack!");
+                }
+
+                break;
+            case AttackType.Poison:
+                if (Mana >= 5)
+                {
+                    target.TakeDamage(AttackPower);
+                    Mana -= 5;
+                    // Start a timer or some other mechanism to apply poison damage over time
+                }
+                else
+                {
+                    MessageBox.Show("Not enough mana for poison attack!");
+                }
+
+                break;
+            case AttackType.Heal:
+                if (Mana >= 10)
+                {
+                    Health += HealPower;
+                    Mana -= 10;
+                }
+                else
+                {
+                    MessageBox.Show("Not enough mana to heal!");
+                }
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(attackType), attackType, null);
+        }
+
+        return damage;
     }
 
-    // method for healing self
-    public void Heal()
+    public virtual int Attack(Player target)
     {
-        Health += _healPower;
+        return Attack(AttackType.Normal, target);
     }
 
-    // method overload for healing self with a custom heal power
-    public void Heal(int healPower)
+    public virtual int Heal()
     {
-        Health += healPower;
+        return HealPower;
     }
 }
